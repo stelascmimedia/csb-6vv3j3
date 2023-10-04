@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Worker Sample</title>
+    <script type="text/javascript">
+      window.onload = function () {
+        var worker = new Worker("bandepassante.js");
+        worker.onmessage = workerResultReceiver;
+        worker.onerror = workerErrorReceiver;
+
+        worker.postMessage({
+          testFile: "choisir-chien-japonais.jpg"
+        });
+
+        function workerResultReceiver(e) {
+          alert(e.data);
+        }
+
+        function workerErrorReceiver(e) {
+          console.log("A webworker error has occurred " + e);
+        }
+      };
+    </script>
+  </head>
+  <body></body>
+  <html></html>
+</html>
