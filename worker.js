@@ -1,5 +1,3 @@
-"use strict";
-
 onmessage = function (e) {
   var data, url, start, fileSize;
 
@@ -17,8 +15,8 @@ onmessage = function (e) {
       xhr.open("HEAD", url, false);
       //xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
       xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4) {
-          if (xhr.status == 200) {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
             fileSize = xhr.getResponseHeader("Content-Length");
           }
         }
@@ -33,8 +31,8 @@ onmessage = function (e) {
       xhr.open("GET", url, false);
       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
       xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4) {
-          if (xhr.status == 200) {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
             result();
           }
         }
@@ -46,20 +44,27 @@ onmessage = function (e) {
   }
 
   function result(v) {
-    var end, rate, duration, message;
+    var end, vitesse, duration, message;
 
     end = new Date();
     end = end.getTime();
     duration = (end - start) / 1000;
-    rate = Math.round((fileSize / (end - start)) * 10) / 10;
+
+    //octet -> mégaoctet
+    fileSize = fileSize * 0.000001;
+    //mégaoctet -> mégabits
+    fileSize = fileSize * 8;
+
+    vitesse = Math.round((fileSize / duration) * 10) / 10;
+
     message =
       '{"fileSize":' +
       fileSize +
-      ',"rate":' +
-      rate +
-      ',"duration":' +
+      'Mb, "duration":' +
       duration +
-      "}";
+      's, "vitesse":' +
+      vitesse +
+      "Mbps}";
 
     postMessage(message);
   }

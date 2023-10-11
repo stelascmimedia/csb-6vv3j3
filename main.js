@@ -1,3 +1,14 @@
+function addElement(elementHTML, id) {
+  // create a new div element
+  const newElement = document.createElement(elementHTML);
+  if (id) {
+    newElement.id = id;
+  }
+  document.body.appendChild(newElement);
+}
+
+addElement("div", "result");
+
 const result = document.getElementById("result");
 
 if (window.Worker) {

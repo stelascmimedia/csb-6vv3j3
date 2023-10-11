@@ -4,9 +4,11 @@ var config = { childList: true };
 
 var callback = function (mutationsList) {
   for (var mutation of mutationsList) {
-    console.log(mutation);
-    if (mutation.type == "childList") {
-      if (targetNode.textContent != "") {
+    /*if (mutation.addedNodes[0].data) {
+      console.log("Récupération contenu duration GOOD");
+    }*/
+    if (mutation.type === "childList") {
+      if (targetNode.textContent !== "") {
         console.log("Récupération contenu duration GOOD");
         observer.disconnect();
       }
