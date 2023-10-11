@@ -18,7 +18,7 @@ if (window.Worker) {
   worker.onerror = workerErrorReceiver;
 
   worker.postMessage({
-    testFile: "pictureForBandepassante.jpg"
+    testFile: "picture124.jpg"
   });
 
   function workerResultReceiver(e) {
